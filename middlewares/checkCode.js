@@ -16,7 +16,7 @@ export const checkCode = async (req, res, next) => {
       res
         .status(404)
         .json({
-            status: "success",
+            status: "failure",
             message: "Invalid Country Code. Country already exists in the Database.",
           });
     } else {

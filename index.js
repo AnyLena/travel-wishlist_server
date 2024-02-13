@@ -3,6 +3,7 @@ import express from "express";
 import { connectDatabase } from "./client/client.js";
 import studentRouter from "./routes/students.js";
 import countriesRouter from "./routes/countries.js";
+import userRouter from "./routes/users.js";
 import cors from 'cors'
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/students", studentRouter);
 app.use("/countries", countriesRouter);
+app.use("/login", userRouter)
 
 const startServer = async () => {
   await connectDatabase();
