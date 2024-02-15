@@ -8,9 +8,9 @@ const countriesRouter = express.Router()
 
 countriesRouter.get("/", getCountries)
 countriesRouter.get("/:code", checkCountryCode, getCountry)
-countriesRouter.post("/", verifyToken, checkCode, postCountry)
-countriesRouter.put("/:code", verifyToken, checkCountryCode, putCountry)
-countriesRouter.delete("/", verifyToken, deleteCountry)
+countriesRouter.post("/", checkCode, postCountry)
+// countriesRouter.put("/:code", checkCountryCode, putCountry)
+// countriesRouter.delete("/", deleteCountry)
 // countriesRouter.post("/delete", deleteCountry)
 // countriesRouter.delete("/:code", checkCountryCode, deleteCountry)
 

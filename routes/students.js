@@ -5,10 +5,10 @@ import { verifyToken } from '../middlewares/verifyToken.js'
 const studentRouter = express.Router()
 
 studentRouter.get("/", getStudents)
-studentRouter.post("/",verifyToken, postStudent)
-studentRouter.put("/:id",verifyToken, putStudent)
-studentRouter.put("/firstname/:old_first_name",verifyToken, putManyStudents)
-studentRouter.put("/:id/:code", verifyToken,putStudentCountry)
+studentRouter.post("/", postStudent)
+studentRouter.put("/:id", putStudent)
+studentRouter.put("/firstname/:old_first_name", putManyStudents)
+studentRouter.put("/:id/:code", putStudentCountry)
 
 
 export default studentRouter

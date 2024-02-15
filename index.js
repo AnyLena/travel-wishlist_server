@@ -11,13 +11,13 @@ const port = 3000;
 
 app.set('view engine', 'ejs');
 
-app.use(express.static('.'))
+// app.use(express.static('.'))
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/students", studentRouter);
 app.use("/countries", countriesRouter);
-app.use("/login", userRouter)
+app.use("/user", userRouter)
 
 const startServer = async () => {
   await connectDatabase();

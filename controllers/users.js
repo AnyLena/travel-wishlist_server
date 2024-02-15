@@ -2,8 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import crypto from "crypto";
-
+// import crypto from "crypto";
 // const secretToken= crypto.randomBytes(32).toString('hex')
 // console.log(secretToken)
 
@@ -13,21 +12,39 @@ const generateToken = (data) => {
   return jwt.sign(data, secretToken, { expiresIn: "1800s" });
 };
 
+export const getUser = async (req, res) => {
+  const { id } = req.user;
+  console.log('from get')
+  console.log(req.user)
+  try {
+    const data = await User.findById(id);
+    if (!data) {
+      res.sendStatus(404);
+    } else {
+      res.json(data);
+    }
+  } catch (err) {
+    res.sendStatus(500);
+  }
+};
+
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const data = req.data;
-    if (!data) {
-      return res.status(404).send("User not found.");
+    // console.log(email, password);
+    const user = await User.findOne({email})
+    // console.log(user)
+    if (!user) {
+      return res.status(404).send("From Login: User not found.");
     }
-    const validPassword = await bcrypt.compare(password, data.password);
+    const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
       return res.status(400).send("Invalid credentials");
     }
-    const token = generateToken({ email: data.email, admin: data.admin });
-    // res.set('Authorization', `Bearer ${token}`);
-    res.json({token})
+    const token = generateToken({ email: user.email, admin: user.admin, id: user._id });
+    
+    res.json({ token, user });
   } catch (error) {
     res.sendStatus(500);
   }
